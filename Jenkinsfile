@@ -13,7 +13,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Pull the code from a GitHub repository
-                git url: 'https://github.com/your-repo/project.git', credentialsId: "${PAT_CREDENTIALS_ID}"
+                git url: 'https://github.com/tuandanh123/Print-Service.git', credentialsId: "${PAT_CREDENTIALS_ID}"
                 echo "Git repository checked out successfully."
             }
         }
