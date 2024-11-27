@@ -26,12 +26,12 @@ pipeline {
                         withDockerRegistry([credentialsId: "${DOCKER_CREDENTIALS_ID}", url: 'https://index.docker.io/v1/']) {
                             // Build and push frontend image
                             sh """
-                            docker build -t ${FRONTEND_IMAGE} -f ./frontend/Dockerfile ./frontend &&
+                            docker build -t ${FRONTEND_IMAGE} -f ./client/Dockerfile ./client &&
                             docker push ${FRONTEND_IMAGE}
                             """
                             // Build and push backend image
                             sh """
-                            docker build -t ${BACKEND_IMAGE} -f ./backend/Dockerfile ./backend &&
+                            docker build -t ${BACKEND_IMAGE} -f ./server/Dockerfile ./server &&
                             docker push ${BACKEND_IMAGE}
                             """
                         }
