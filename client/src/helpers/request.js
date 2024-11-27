@@ -1,6 +1,6 @@
 export async function sendGetRequest(path, errorMessage) {
     try {
-        const host = 'http://localhost:8080';
+        const host = '35.186.150.135:8080';
         const response = await fetch(host + path, {
             method: 'GET',
             headers: {  
@@ -22,7 +22,7 @@ export async function sendGetRequest(path, errorMessage) {
 
 export default async function sendRequest(method, path, data, errorMessage) {
     try {
-        const host = 'http://localhost:8080';
+        const host = '35.186.150.135:8080';
 
         const response = await fetch (host + path, {
             method: method,
