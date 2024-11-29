@@ -80,6 +80,13 @@
 - [Spring Boot](https://spring.io/projects/spring-boot/)
 - [Spring JPA](https://spring.io/projects/spring-data-jpa)
 - [MySQL](https://www.mysql.com/)
+- [Docker](https://www.docker.com/)
+- [Jenkin](https://www.jenkins.io/)
+- [sonarqube](https://www.sonarsource.com/products/sonarqube/)
+- [Unittest](https://junit.org/junit5/)
+- [Firebase](https://firebase.google.com/)
+- [Spotless](https://github.com/diffplug/spotless)
+- 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
