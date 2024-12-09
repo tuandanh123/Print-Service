@@ -1,18 +1,16 @@
 pipeline {
     agent any
     environment {
-        // Docker Hub credentials
         PAT_CREDENTIALS_ID = "PAT_Jenkins"
-        DOCKER_CREDENTIALS_ID = "docker-hub" // Set Jenkins Docker Hub credentials ID here
-        FRONTEND_IMAGE = "tuandanh123/siu-backend:latest" // Replace with your Docker frontend image name and tag
-        BACKEND_IMAGE = "tuandanh123/siu-frontend:latest"    // Replace with your Docker backend image name and tag
+        DOCKER_CREDENTIALS_ID = "docker-hub"
+        FRONTEND_IMAGE = "tuandanh123/siu-backend:latest"
+        BACKEND_IMAGE = "tuandanh123/siu-frontend:latest"
         COMPOSE_FILE = "docker-compose.yml"
     }
 
     stages {
         stage('Checkout') {
             steps {
-                // Pull the code from a GitHub repository
                 git branch: 'main', url: 'https://github.com/tuandanh123/Print-Service.git', credentialsId: "${PAT_CREDENTIALS_ID}"
                 echo "Git repository checked out successfully."
             }
@@ -21,25 +19,16 @@ pipeline {
         stage('Build Docker Images') {
             steps {
                 script {
-                    try {
-                        echo "Building Docker images for frontend and backend..."
-                        withDockerRegistry([credentialsId: "${DOCKER_CREDENTIALS_ID}", url: 'https://index.docker.io/v1/']) {
-                            // Build and push frontend image
-                            sh """
-                            docker build -t ${FRONTEND_IMAGE} -f ./client/Dockerfile ./client &&
-                            docker push ${FRONTEND_IMAGE}
-                            """
-                            // Build and push backend image
-                            sh """
-                            docker build -t ${BACKEND_IMAGE} -f ./server/Dockerfile ./server &&
-                            docker push ${BACKEND_IMAGE}
-                            """
-                        }
-                        echo "Docker images built and pushed successfully."
-                    } catch (Exception e) {
-                        echo "Error during image build/push: ${e.getMessage()}"
-                        throw e
+                    echo "Building Docker images for frontend and backend..."
+                    withDockerRegistry([credentialsId: "${DOCKER_CREDENTIALS_ID}", url: 'https://index.docker.io/v1/']) {
+                        sh """
+                        docker build -t ${FRONTEND_IMAGE} -f ./client/Dockerfile ./client &&
+                        docker push ${FRONTEND_IMAGE}
+                        docker build -t ${BACKEND_IMAGE} -f ./server/Dockerfile ./server &&
+                        docker push ${BACKEND_IMAGE}
+                        """
                     }
+                    echo "Docker images built and pushed successfully."
                 }
             }
         }
@@ -47,19 +36,14 @@ pipeline {
         stage('Deploy with Docker Compose') {
             steps {
                 script {
-                    try {
-                        echo "Deploying services using Docker Compose..."
-                        dir("${WORKSPACE}") {
-                             sh """
-                             docker-compose down || true
-                             docker-compose up -d
-                             """
-                        }
-                        echo "Services deployed successfully."
-                    } catch (Exception e) {
-                        echo "Error during deployment: ${e.getMessage()}"
-                        throw e
+                    echo "Deploying services using Docker Compose..."
+                    dir("${WORKSPACE}") {
+                        sh """
+                        /usr/local/bin/docker-compose down || true
+                        /usr/local/bin/docker-compose up -d
+                        """
                     }
+                    echo "Services deployed successfully."
                 }
             }
         }
