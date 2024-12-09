@@ -49,10 +49,12 @@ pipeline {
                 script {
                     try {
                         echo "Deploying services using Docker Compose..."
-                        sh """
-                        docker-compose down || true
-                        docker-compose up -d
-                        """
+                        dir("${WORKSPACE}") {
+                             sh """
+                             docker-compose down || true
+                             docker-compose up -d
+                             """
+                        }
                         echo "Services deployed successfully."
                     } catch (Exception e) {
                         echo "Error during deployment: ${e.getMessage()}"
