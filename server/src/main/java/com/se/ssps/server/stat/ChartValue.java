@@ -13,5 +13,6 @@ import lombok.Setter;
 public class ChartValue {
     private String name;
     private Double stat;
+    //ddd
 
 }
