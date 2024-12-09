@@ -2,8 +2,8 @@ pipeline {
     agent any
     environment {
         // Docker Hub credentials
-        PAT_CREDENTIALS_ID = "tuandanh"
-        DOCKER_CREDENTIALS_ID = "tuandanh1" // Set Jenkins Docker Hub credentials ID here
+        PAT_CREDENTIALS_ID = "PAT_Jenkins"
+        DOCKER_CREDENTIALS_ID = "docker-hub" // Set Jenkins Docker Hub credentials ID here
         FRONTEND_IMAGE = "tuandanh123/siu-backend:latest" // Replace with your Docker frontend image name and tag
         BACKEND_IMAGE = "tuandanh123/siu-frontend:latest"    // Replace with your Docker backend image name and tag
         COMPOSE_FILE = "docker-compose.yml"
