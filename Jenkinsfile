@@ -39,8 +39,9 @@ pipeline {
                     echo "Deploying services using Docker Compose..."
                     dir("${WORKSPACE}") {
                         sh """
-                        /usr/local/bin/docker-compose down || true
-                        /usr/local/bin/docker-compose up -d
+                        /usr/local/bin/docker-compose pull
+                        /usr/local/bin/docker-compose down --remove-orphans || true
+                        /usr/local/bin/docker-compose up -d --force-recreate
                         """
                     }
                     echo "Services deployed successfully."
